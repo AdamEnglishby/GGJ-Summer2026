@@ -4,16 +4,22 @@ using UnityEngine;
 public class AutoPlayer : MonoBehaviour
 {
     
+    [SerializeField] private AutoPlayerConfiguration config;
+    
     private CharacterController _controller;
+    private AutoPlayerInput _input;
+    private float _verticalVelocity;
 
-    private void Awake()
-    {
-        _controller = GetComponent<CharacterController>();
-    }
+    private void Awake() => _controller = GetComponent<CharacterController>();
 
     private void Update()
     {
-        // TODO: make the guy move
+        if (_controller.isGrounded) _verticalVelocity = -2f;
+        else _verticalVelocity -= config.gravityStrength;
+        
+        var moveInput = new Vector3(_input.Move, _verticalVelocity, config.forwardSpeed);
+        
+        _controller.Move(moveInput * Time.deltaTime);
     }
     
 }
