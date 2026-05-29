@@ -16,6 +16,12 @@ public class AutoPlayer : MonoBehaviour
     {
         if (_controller.isGrounded) _verticalVelocity = -2f;
         else _verticalVelocity -= config.gravityStrength;
+
+        if (_input.Jump)
+        {
+            _input.Jump = false;
+            _verticalVelocity = config.baseJumpHeight;
+        }
         
         var moveInput = new Vector3(_input.Move, _verticalVelocity, config.forwardSpeed);
         

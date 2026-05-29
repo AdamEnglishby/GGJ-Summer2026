@@ -1,4 +1,7 @@
-﻿public struct AutoPlayerInput
+﻿using System;
+
+[Serializable]
+public struct AutoPlayerInput
 {
 
     public float Move;

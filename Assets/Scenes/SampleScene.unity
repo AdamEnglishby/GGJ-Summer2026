@@ -249,7 +249,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   config:
-    forwardSpeed: 5
+    forwardSpeed: 0
     gravityStrength: 1
 --- !u!1 &330585543
 GameObject:
