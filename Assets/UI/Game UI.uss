@@ -21,3 +21,15 @@
 .game-state-death .state#death-container {
     display: flex;
 }
+
+Button:hover {
+    
+}
+
+Button .hover-state {
+    display: none;
+}
+
+Button:hover .hover-state {
+    display: flex;
+}

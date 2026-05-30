@@ -20,6 +20,10 @@ public class GameUI : MonoBehaviour
         _document.rootVisualElement.Q<Button>("button-play").clicked += OnPlayButtonClicked;
         _document.rootVisualElement.Q<Button>("button-upgrades").clicked += OnUpgradesButtonClicked;
         _document.rootVisualElement.Q<Button>("button-exit").clicked += OnExitButtonClicked;
+        
+        _document.rootVisualElement.Q<Button>("button-play-hover").clicked += OnPlayButtonClicked;
+        _document.rootVisualElement.Q<Button>("button-upgrades-hover").clicked += OnUpgradesButtonClicked;
+        _document.rootVisualElement.Q<Button>("button-exit-hover").clicked += OnExitButtonClicked;
     }
 
     private void OnPlayButtonClicked()
