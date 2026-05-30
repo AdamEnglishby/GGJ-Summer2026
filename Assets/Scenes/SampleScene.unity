@@ -132,6 +132,7 @@ GameObject:
   - component: {fileID: 20652542}
   - component: {fileID: 20652540}
   - component: {fileID: 20652545}
+  - component: {fileID: 20652546}
   m_Layer: 0
   m_Name: Runner
   m_TagString: Untagged
@@ -250,8 +251,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   config:
     forwardSpeed: 0
+    sideSpeed: 5
     baseJumpHeight: 30
     gravityStrength: 1
+  brain: {fileID: 20652546}
+--- !u!114 &20652546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 20652539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: beba677e83764184886b9708ea16cc86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AutoPlayerBrain
+  gravityModifier: 1
+  forwardSpeedModifier: 1
+  sideSpeedModifier: 1
+  jumpHeightModifier: 1
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0

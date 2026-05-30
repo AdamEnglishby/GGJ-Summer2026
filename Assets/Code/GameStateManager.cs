@@ -12,7 +12,11 @@ public class GameStateManager : MonoBehaviour
         Death
     }
 
-    private void Awake() => CurrentGameState = GameState.Menu;
+    private void Awake()
+    {
+        Application.targetFrameRate = 60;
+        CurrentGameState = GameState.Menu;
+    }
 
     private static GameState _gameState;
     
