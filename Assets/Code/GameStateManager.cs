@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public static class GameStateManager
+public class GameStateManager : MonoBehaviour
 {
 
     public enum GameState
@@ -12,6 +12,8 @@ public static class GameStateManager
         Death
     }
 
+    private void Awake() => CurrentGameState = GameState.Menu;
+
     private static GameState _gameState;
     
     public static GameState CurrentGameState
@@ -19,7 +21,6 @@ public static class GameStateManager
         get => _gameState;
         set
         {
-            Debug.Log("Game state changed! " + value);
             OnStateChange?.Invoke(value);
             _gameState = value;
         }

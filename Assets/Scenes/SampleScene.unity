@@ -770,6 +770,7 @@ GameObject:
   - component: {fileID: 1496727137}
   - component: {fileID: 1496727136}
   - component: {fileID: 1496727138}
+  - component: {fileID: 1496727139}
   m_Layer: 5
   m_Name: Game UI
   m_TagString: Untagged
@@ -827,6 +828,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec6c1b7cfabb43839419afd3a6abbc70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameUI
+--- !u!114 &1496727139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1496727135}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62f64e92583949f2a97d4f477f4d58b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameStateManager
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

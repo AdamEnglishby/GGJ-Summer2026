@@ -16,6 +16,29 @@ public class GameUI : MonoBehaviour
         _document.rootVisualElement.Q<Button>("btn-debug-upgrades").clicked += () => GameStateManager.CurrentGameState = GameStateManager.GameState.Upgrades;
         _document.rootVisualElement.Q<Button>("btn-debug-gameplay").clicked += () => GameStateManager.CurrentGameState = GameStateManager.GameState.Gameplay;
         _document.rootVisualElement.Q<Button>("btn-debug-death").clicked += () => GameStateManager.CurrentGameState = GameStateManager.GameState.Death;
+        
+        _document.rootVisualElement.Q<Button>("button-play").clicked += OnPlayButtonClicked;
+        _document.rootVisualElement.Q<Button>("button-upgrades").clicked += OnUpgradesButtonClicked;
+        _document.rootVisualElement.Q<Button>("button-exit").clicked += OnExitButtonClicked;
+    }
+
+    private void OnPlayButtonClicked()
+    {
+        GameStateManager.CurrentGameState = GameStateManager.GameState.Gameplay;
+    }
+    
+    private void OnUpgradesButtonClicked()
+    {
+        GameStateManager.CurrentGameState = GameStateManager.GameState.Upgrades;
+    }
+    
+    private void OnExitButtonClicked()
+    {
+        #if UNITY_EDITOR
+        UnityEditor.EditorApplication.ExitPlaymode();
+        #else
+        Application.Quit();
+        #endif
     }
 
     private void OnDisable()
