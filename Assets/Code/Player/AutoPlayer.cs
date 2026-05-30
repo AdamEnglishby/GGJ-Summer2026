@@ -10,7 +10,11 @@ public class AutoPlayer : MonoBehaviour
     private AutoPlayerInput _input;
     private float _verticalVelocity;
 
-    private void Awake() => _controller = GetComponent<CharacterController>();
+    private void Awake()
+    {
+        Application.targetFrameRate = 60;
+        _controller = GetComponent<CharacterController>();
+    }
 
     private void Update()
     {

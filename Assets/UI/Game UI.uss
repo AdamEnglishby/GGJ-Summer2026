@@ -1,0 +1,23 @@
+:root {
+
+}
+
+.state {
+    display: none;
+}
+
+.game-state-menu .state#menu-container {
+    display: flex;
+}
+
+.game-state-upgrades .state#upgrade-container {
+    display: flex;
+}
+
+.game-state-gameplay .state#gameplay-container {
+    display: flex;
+}
+
+.game-state-death .state#death-container {
+    display: flex;
+}

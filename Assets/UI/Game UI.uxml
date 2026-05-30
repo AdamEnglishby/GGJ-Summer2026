@@ -1,0 +1,25 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/Game%20UI.uss?fileID=7433441132597879392&amp;guid=d5d09d799faf39a41923ce588f340fec&amp;type=3#Game UI"/>
+    <ui:VisualElement name="menu-container" class="state" style="flex-grow: 1; justify-content: center; margin-top: 48px; margin-right: 48px; margin-bottom: 48px; margin-left: 48px;">
+        <ui:VisualElement style="flex-direction: row;">
+            <ui:Button text="Play" name="button-play" style="flex-grow: 1;"/>
+            <ui:Button text="Upgrades" name="button-upgrades"/>
+        </ui:VisualElement>
+        <ui:Button text="Exit" name="button-exit"/>
+    </ui:VisualElement>
+    <ui:VisualElement name="upgrade-container" class="state" style="flex-grow: 1;">
+        <ui:Label text="Upgrade UI"/>
+    </ui:VisualElement>
+    <ui:VisualElement name="gameplay-container" class="state" style="flex-grow: 1;">
+        <ui:Label text="Gameplay UI"/>
+    </ui:VisualElement>
+    <ui:VisualElement name="death-container" class="state" style="flex-grow: 1;">
+        <ui:Label text="Death UI"/>
+    </ui:VisualElement>
+    <ui:VisualElement style="align-self: flex-end; justify-content: flex-end; position: absolute;">
+        <ui:Button text="Menu" name="btn-debug-menu" style="font-size: 8px; padding-top: 2px; padding-right: 2px; padding-bottom: 2px; padding-left: 2px;"/>
+        <ui:Button text="Upgrades" name="btn-debug-upgrades" style="font-size: 8px; padding-top: 2px; padding-right: 2px; padding-bottom: 2px; padding-left: 2px;"/>
+        <ui:Button text="Gameplay" name="btn-debug-gameplay" style="font-size: 8px; padding-top: 2px; padding-right: 2px; padding-bottom: 2px; padding-left: 2px;"/>
+        <ui:Button text="Death" name="btn-debug-death" style="font-size: 8px; padding-top: 2px; padding-right: 2px; padding-bottom: 2px; padding-left: 2px;"/>
+    </ui:VisualElement>
+</ui:UXML>
