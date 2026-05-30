@@ -37,12 +37,10 @@ public class AutoPlayerBrain : MonoBehaviour
         return Mathf.Clamp(Mathf.RoundToInt(x / sensorConfig.laneSpacing), (int) -halfLanes, (int) halfLanes);
     }
 
-    private float GetLaneWorldX(int laneIndex) => laneIndex * sensorConfig.laneSpacing;
-
     private Vector3 GetRayOrigin(AutoPlayer player, int lane, float probeHeight)
     {
         var feetY = player.transform.position.y + player.FeetOffsetY + sensorConfig.rayOriginYOffset;
-        return new Vector3(GetLaneWorldX(lane), feetY + probeHeight, player.transform.position.z);
+        return new Vector3(lane * sensorConfig.laneSpacing, feetY + probeHeight, player.transform.position.z);
     }
 
     private int ChooseTargetLane(AutoPlayer player, int currentLane, float lookAhead)
@@ -72,7 +70,6 @@ public class AutoPlayerBrain : MonoBehaviour
 
         var feetBlocked = IsLaneBlocked(origin, lookAhead, sensorConfig.lowObstacleHeight);
         var overheadBlocked = IsLaneBlocked(origin, lookAhead, sensorConfig.overheadObstacleHeight);
-        var bodyBlocked = IsLaneBlocked(origin, lookAhead, sensorConfig.bodyHeight);
 
         if (feetBlocked && overheadBlocked) return -100f;
         if (feetBlocked) return CanEverClearObstacle(player) ? 90f : -50f;
@@ -90,7 +87,7 @@ public class AutoPlayerBrain : MonoBehaviour
 
     private float CalculateLateralInput(float currentX, int targetLane)
     {
-        var deltaX = GetLaneWorldX(targetLane) - currentX;
+        var deltaX = targetLane * sensorConfig.laneSpacing - currentX;
         return Mathf.Abs(deltaX) <= sensorConfig.laneAlignThreshold ? 0f : Mathf.Clamp(deltaX / sensorConfig.laneSpacing, -1f, 1f);
     }
 
@@ -101,13 +98,6 @@ public class AutoPlayerBrain : MonoBehaviour
         if (!IsLaneBlocked(origin, lookAhead, sensorConfig.lowObstacleHeight)) return false;
         if (IsLaneBlocked(origin, lookAhead, sensorConfig.bodyHeight)) return false;
 
-        var distance = GetObstacleDistance(origin, lookAhead, sensorConfig.lowObstacleHeight);
-        return distance > 0f && CanClearAtDistance(player, distance);
-    }
-
-    private bool CanClearLowObstacle(AutoPlayer player, int lane, float lookAhead)
-    {
-        var origin = GetRayOrigin(player, lane, 0f);
         var distance = GetObstacleDistance(origin, lookAhead, sensorConfig.lowObstacleHeight);
         return distance > 0f && CanClearAtDistance(player, distance);
     }

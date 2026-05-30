@@ -1,7 +1,8 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/Game%20UI.uss?fileID=7433441132597879392&amp;guid=d5d09d799faf39a41923ce588f340fec&amp;type=3#Game UI"/>
     <ui:VisualElement name="menu-container" class="state" style="flex-grow: 1; justify-content: center; margin-top: 48px; margin-right: 48px; margin-bottom: 48px; margin-left: 48px;">
-        <ui:VisualElement style="flex-direction: column; align-items: flex-start;">
+        <ui:VisualElement style="flex-grow: 1; position: absolute; top: -48px; left: -48px; right: -48px; bottom: -48px; background-color: rgba(0, 0, 0, 0.78);"/>
+        <ui:VisualElement style="flex-direction: column; align-items: flex-start; scale: 1.5 1.5 1.5; align-self: flex-start; margin-left: 16px;">
             <ui:Button name="button-upgrades" icon-image="project://database/Assets/UI/Buttons/Upgrades.svg?fileID=7388822144124034973&amp;guid=b746308e6d0814d4cad54fc32713c07e&amp;type=3#Upgrades" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; background-color: rgba(255, 255, 255, 0); border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; position: relative;">
                 <ui:Button icon-image="project://database/Assets/UI/Buttons/Upgrades%20(Hover).svg?fileID=7388822144124034973&amp;guid=0b38d50717972784db8694e5a9aa5f02&amp;type=3#Upgrades (Hover)" name="button-upgrades-hover" class="hover-state" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; background-color: rgba(188, 188, 188, 0); border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; translate: 0 1px;"/>
             </ui:Button>
@@ -13,13 +14,21 @@
             </ui:Button>
         </ui:VisualElement>
     </ui:VisualElement>
-    <ui:VisualElement name="upgrade-container" class="state" style="flex-grow: 1;">
-        <ui:Label text="Upgrade UI"/>
+    <ui:VisualElement name="upgrade-container" class="state" style="flex-grow: 1; align-items: center;">
+        <ui:VisualElement style="flex-grow: 1; position: absolute; top: -48px; left: -48px; right: -48px; bottom: -48px; background-color: rgba(0, 0, 0, 0.78);"/>
+        <ui:VisualElement style="flex-grow: 0; margin-top: 8px; width: 100%;">
+            <ui:Button name="button-back-to-menu" icon-image="project://database/Assets/UI/Buttons/Back%20To%20Main%20Menu.svg?fileID=7388822144124034973&amp;guid=5beb147f45b3cbd489578402a1e26165&amp;type=3#Back To Main Menu" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; position: absolute; background-color: rgba(188, 188, 188, 0); border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; translate: 11px 19px;"/>
+            <ui:Image source="project://database/Assets/UI/Buttons/Upgrades%20Header.svg?fileID=7388822144124034973&amp;guid=8fa4f812c95d1834194d629acaba3ee1&amp;type=3#Upgrades Header" style="position: absolute; left: 64px;"/>
+            <ui:Image source="project://database/Assets/UI/Buttons/Coin%20Holder.svg?fileID=7388822144124034973&amp;guid=520bfa1b6c840c647ba5934958f18525&amp;type=3#Coin Holder" style="position: absolute; left: 282px; top: 21px;"/>
+            <ui:Label text="0" style="position: absolute; left: 316px; top: 24px; -unity-text-align: upper-right; align-items: flex-end; align-self: flex-end; align-content: flex-end; transform-origin: right; font-size: 20px; color: rgb(255, 255, 255); -unity-font-style: bold;"/>
+            <ui:Image source="project://database/Assets/UI/Buttons/Coin.svg?fileID=7388822144124034973&amp;guid=7d88abda92f51fb4ba6164fc18a1a3ef&amp;type=3#Coin" style="position: absolute; left: 351px; top: 35px;"/>
+        </ui:VisualElement>
     </ui:VisualElement>
     <ui:VisualElement name="gameplay-container" class="state" style="flex-grow: 1;">
         <ui:Label text="Gameplay UI"/>
     </ui:VisualElement>
     <ui:VisualElement name="death-container" class="state" style="flex-grow: 1;">
+        <ui:VisualElement style="flex-grow: 1; position: absolute; top: -48px; left: -48px; right: -48px; bottom: -48px; background-color: rgba(0, 0, 0, 0.78);"/>
         <ui:Label text="Death UI"/>
     </ui:VisualElement>
     <ui:VisualElement style="align-self: flex-end; justify-content: flex-end; position: absolute;">
