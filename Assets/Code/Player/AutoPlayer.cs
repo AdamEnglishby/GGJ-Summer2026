@@ -1,28 +1,58 @@
 using System.Threading.Tasks;
 using UnityEngine;
 
-// TODO: rotate the character towards its movement direction
 [RequireComponent(typeof(CharacterController))]
 public class AutoPlayer : MonoBehaviour
 {
     
+    private static readonly int Sliding = Animator.StringToHash("Sliding");
+
     [SerializeField] private LevelSpawner levelSpawner;
     [SerializeField] private AutoPlayerConfiguration config;
     [SerializeField] private AutoPlayerBrain brain;
+    [SerializeField] private Animator animator;
     
     private CharacterController _controller;
     private AutoPlayerInput _input;
     private float _verticalVelocity;
+    private float _slideTimer;
+    private float _defaultHeight;
+    private Vector3 _defaultCenter;
 
     public AutoPlayerConfiguration Config => config;
     public bool IsGrounded => _controller.isGrounded;
     public float FeetOffsetY => -_controller.height * 0.5f + _controller.center.y;
 
-    private void Awake() => _controller = GetComponent<CharacterController>();
+    private void Awake()
+    {
+        _controller = GetComponent<CharacterController>();
+        _defaultHeight = _controller.height;
+        _defaultCenter = _controller.center;
+    }
 
     private void Update()
     {
         _input = brain.CalculateInput(this);
+        
+        if (_input.Slide && _controller.isGrounded && _slideTimer <= 0f)
+        {
+            animator.SetBool(Sliding, true);
+            _input.Slide = false;
+            _slideTimer = config.slideDuration;
+        }
+
+        if (_slideTimer > 0f)
+        {
+            _slideTimer -= Time.deltaTime;
+            _controller.height = _defaultHeight * 0.5f;
+            _controller.center = new Vector3(_defaultCenter.x, _defaultCenter.y - _defaultHeight * 0.25f, _defaultCenter.z);
+        }
+        else
+        {
+            animator.SetBool(Sliding, false);
+            _controller.height = _defaultHeight;
+            _controller.center = _defaultCenter;
+        }
         
         if (_controller.isGrounded) _verticalVelocity = -2f;
         else _verticalVelocity -= config.gravityStrength * brain.gravityModifier * Time.deltaTime;

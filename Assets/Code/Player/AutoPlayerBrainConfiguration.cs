@@ -14,5 +14,8 @@ public class AutoPlayerBrainConfiguration
     public float bodyHeight = 1f;
     public float rayOriginYOffset = 0.5f;
     public float jumpLeadTimeMultiplier = 0.85f;
+    public float overheadObstacleHeight = 1.5f;
+    public float slideClearanceHeight = 0.6f;
+    public float slideLeadTimeMultiplier = 1f;
     
 }

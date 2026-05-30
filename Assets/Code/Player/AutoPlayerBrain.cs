@@ -3,6 +3,7 @@ using UnityEngine;
 public class AutoPlayerBrain : MonoBehaviour
 {
     
+    [SerializeField] private LevelSpawner levelSpawner;
     [SerializeField] private AutoPlayerBrainConfiguration sensorConfig = new();
 
     [SerializeField] public float gravityModifier = 1f;
@@ -13,13 +14,17 @@ public class AutoPlayerBrain : MonoBehaviour
     public AutoPlayerInput CalculateInput(AutoPlayer player)
     {
         var input = new AutoPlayerInput();
-        var lookAhead = player.Config.forwardSpeed * forwardSpeedModifier * sensorConfig.lookAheadTime;
+        var lookAhead = player.Config.forwardSpeed * forwardSpeedModifier * levelSpawner.DifficultyModifier * sensorConfig.lookAheadTime;
         var currentLane = GetLaneIndex(player.transform.position.x);
         var targetLane = ChooseTargetLane(player, currentLane, lookAhead);
 
         input.Move = CalculateLateralInput(player.transform.position.x, targetLane);
 
-        if (player.IsGrounded && ShouldJump(player, targetLane, lookAhead)) input.Jump = true;
+        if (input.Move == 0f)
+        {
+            if (player.IsGrounded && ShouldJump(player, currentLane, lookAhead)) input.Jump = true;
+            else if (ShouldSlide(player, currentLane, lookAhead)) input.Slide = true;
+        }
 
         return input;
     }
@@ -49,7 +54,7 @@ public class AutoPlayerBrain : MonoBehaviour
         for (var lane = -(int)halfLanes; lane <= (int)halfLanes; lane++)
         {
             var score = ScoreLane(player, lane, lookAhead);
-            score -= Mathf.Abs(lane - currentLane) * 0.25f;
+            score -= Mathf.Abs(lane - currentLane) * 15f;
 
             if (score <= bestScore)
                 continue;
@@ -65,10 +70,15 @@ public class AutoPlayerBrain : MonoBehaviour
     {
         var origin = GetRayOrigin(player, lane, 0f);
 
-        if (IsLaneBlocked(origin, lookAhead, sensorConfig.bodyHeight)) return -100f;
-        if (IsLaneBlocked(origin, lookAhead, sensorConfig.lowObstacleHeight)) return CanClearLowObstacle(player, lane, lookAhead) ? 10f : -50f;
+        var feetBlocked = IsLaneBlocked(origin, lookAhead, sensorConfig.lowObstacleHeight);
+        var overheadBlocked = IsLaneBlocked(origin, lookAhead, sensorConfig.overheadObstacleHeight);
+        var bodyBlocked = IsLaneBlocked(origin, lookAhead, sensorConfig.bodyHeight);
 
-        return 100f - Mathf.Abs(GetLaneWorldX(lane) - player.transform.position.x);
+        if (feetBlocked && overheadBlocked) return -100f;
+        if (feetBlocked) return CanEverClearObstacle(player) ? 90f : -50f;
+        if (overheadBlocked) return CanEverSlideUnder(player, lane, lookAhead) ? 90f : -50f;
+
+        return 100f;
     }
 
     private bool IsLaneBlocked(Vector3 feetOrigin, float distance, float probeHeight)
@@ -135,6 +145,42 @@ public class AutoPlayerBrain : MonoBehaviour
         if (obstacleDistance > jumpTravel) return false;
 
         return obstacleDistance <= jumpLeadDistance;
+    }
+    
+    private bool CanEverClearObstacle(AutoPlayer player)
+    {
+        var jumpVelocity = GetJumpVelocity(player.Config);
+        var gravity = player.Config.gravityStrength * gravityModifier;
+        if (gravity <= 0f || jumpVelocity <= 0f) return false;
+
+        var maxJumpHeight = jumpVelocity * jumpVelocity / (2f * gravity);
+        return maxJumpHeight >= sensorConfig.lowObstacleHeight;
+    }
+    
+    private bool ShouldSlide(AutoPlayer player, int lane, float lookAhead)
+    {
+        var origin = GetRayOrigin(player, lane, 0f);
+
+        if (!IsLaneBlocked(origin, lookAhead, sensorConfig.overheadObstacleHeight)) return false;
+        if (IsLaneBlocked(origin, lookAhead, sensorConfig.slideClearanceHeight)) return false;
+
+        var distance = GetObstacleDistance(origin, lookAhead, sensorConfig.overheadObstacleHeight);
+        return distance > 0f && CanSlideAtDistance(player, distance);
+    }
+
+    private bool CanSlideAtDistance(AutoPlayer player, float obstacleDistance)
+    {
+        var forwardSpeed = player.Config.forwardSpeed * forwardSpeedModifier;
+        if (forwardSpeed <= 0f) return false;
+
+        var slideLeadDistance = forwardSpeed * sensorConfig.slideLeadTimeMultiplier;
+        return obstacleDistance <= slideLeadDistance;
+    }
+
+    private bool CanEverSlideUnder(AutoPlayer player, int lane, float lookAhead)
+    {
+        var origin = GetRayOrigin(player, lane, 0f);
+        return !IsLaneBlocked(origin, lookAhead, sensorConfig.slideClearanceHeight);
     }
     
 }
