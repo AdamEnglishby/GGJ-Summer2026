@@ -22,10 +22,6 @@
     display: flex;
 }
 
-Button:hover {
-    
-}
-
 Button .hover-state {
     display: none;
 }

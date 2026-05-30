@@ -1,9 +1,12 @@
+using System.Threading.Tasks;
 using UnityEngine;
 
+// TODO: rotate the character towards its movement direction
 [RequireComponent(typeof(CharacterController))]
 public class AutoPlayer : MonoBehaviour
 {
     
+    [SerializeField] private LevelSpawner levelSpawner;
     [SerializeField] private AutoPlayerConfiguration config;
     [SerializeField] private AutoPlayerBrain brain;
     
@@ -26,7 +29,7 @@ public class AutoPlayer : MonoBehaviour
 
         if (_verticalVelocity < 0)
         {
-            _verticalVelocity -= config.gravityStrength * brain.gravityModifier * Time.deltaTime * 2;
+            _verticalVelocity -= config.gravityStrength * brain.gravityModifier * Time.deltaTime;
         }
 
         if (_input.Jump && _controller.isGrounded)
@@ -38,9 +41,28 @@ public class AutoPlayer : MonoBehaviour
         var moveInput = new Vector3(
             _input.Move * config.sideSpeed * brain.sideSpeedModifier,
             _verticalVelocity,
-            config.forwardSpeed * brain.forwardSpeedModifier);
+            config.forwardSpeed * brain.forwardSpeedModifier * levelSpawner.DifficultyModifier);
         
         _controller.Move(moveInput * Time.deltaTime);
+        
+        var horizontalMove = new Vector3(moveInput.x, 0f, moveInput.z);
+        if (horizontalMove.sqrMagnitude < 0.001f) return;
+        
+        var targetRotation = Quaternion.LookRotation(horizontalMove);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 360 * Time.deltaTime);
+    }
+    
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        if (hit.gameObject.layer == LayerMask.NameToLayer("Obstacle"))
+        {
+            _ = Die();
+        }
+    }
+
+    private async Task Die()
+    {
+        GameStateManager.CurrentGameState = GameStateManager.GameState.Death;
     }
     
 }

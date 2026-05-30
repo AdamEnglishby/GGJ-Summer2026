@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class LevelSpawner : MonoBehaviour
 {
@@ -9,6 +11,11 @@ public class LevelSpawner : MonoBehaviour
     [SerializeField] private int initialSegmentCount = 4;
     [SerializeField] private float spawnDistanceAhead = 60f;
     [SerializeField] private float despawnDistanceBehind = 20f;
+    [SerializeField] private float difficultyIncreaseInterval = 5f;
+    [SerializeField] private float difficultyIncreaseAmount = 1.1f;
+    
+    [NonSerialized] public float DifficultyModifier = 1f;
+    private float _difficultyTimer;
 
     private readonly Queue<LevelSegment> _activeSegments = new();
     private Vector3 _nextSpawnPosition;
@@ -23,6 +30,13 @@ public class LevelSpawner : MonoBehaviour
 
     private void Update()
     {
+        _difficultyTimer += Time.deltaTime;
+        if (_difficultyTimer >= difficultyIncreaseInterval)
+        {
+            DifficultyModifier *= difficultyIncreaseAmount;
+            _difficultyTimer = 0f;
+        }
+
         var furthestSegmentEnd = _nextSpawnPosition.z;
         while (furthestSegmentEnd - player.position.z < spawnDistanceAhead)
         {
