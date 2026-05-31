@@ -15,7 +15,7 @@ public class Coin : MonoBehaviour
     
     private void Awake()
     {
-        if (cam == null) cam = Camera.main;
+        if (!cam) cam = Camera.main;
     }
 
     private void Update()
@@ -24,8 +24,8 @@ public class Coin : MonoBehaviour
 
         if(_collected) return;
         
-        var mousePressed = Mouse.current?.leftButton.wasPressedThisFrame;
-        var touchscreenPressed = Touchscreen.current?.primaryTouch.press.wasPressedThisFrame;
+        var mousePressed = Mouse.current?.leftButton.isPressed;
+        var touchscreenPressed = Touchscreen.current?.primaryTouch.press.isPressed;
 
         var position = default(Vector2);
         var pressed = false;
