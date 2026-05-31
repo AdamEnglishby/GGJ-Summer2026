@@ -1,5 +1,5 @@
 :root {
-
+    -unity-font-definition: url("project://database/Assets/UI/NewAmsterdam-Regular.ttf?fileID=12800000&guid=80493d70b24266a419cb551a869fd25f&type=3#NewAmsterdam-Regular");
 }
 
 .state {

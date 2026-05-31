@@ -16,6 +16,7 @@ public class GameStateManager : MonoBehaviour
     {
         Application.targetFrameRate = 60;
         CurrentGameState = GameState.Menu;
+        CoinCount = 0;
     }
 
     private static GameState _gameState;
@@ -25,11 +26,23 @@ public class GameStateManager : MonoBehaviour
         get => _gameState;
         set
         {
-            OnStateChange?.Invoke(value);
             _gameState = value;
+            OnStateChange?.Invoke(value);
+        }
+    }
+    
+    private static int _coinCount;
+    public static int CoinCount
+    {
+        get => _coinCount;
+        set
+        {
+            _coinCount = value;
+            OnCoinCollected?.Invoke();
         }
     }
 
     public static event Action<GameState> OnStateChange;
+    public static event Action OnCoinCollected;
     
 }

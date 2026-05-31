@@ -19,6 +19,8 @@ public class AutoPlayer : MonoBehaviour
     private float _defaultHeight;
     private Vector3 _defaultCenter;
 
+    private bool _runStarted;
+
     public AutoPlayerConfiguration Config => config;
     public bool IsGrounded => _controller.isGrounded;
     public float FeetOffsetY => -_controller.height * 0.5f + _controller.center.y;
@@ -30,8 +32,21 @@ public class AutoPlayer : MonoBehaviour
         _defaultCenter = _controller.center;
     }
 
+    [ContextMenu("Start Run")]
+    public void StartRun()
+    {
+        levelSpawner.ResetLevel();
+        
+        transform.position = Vector3.zero;
+        transform.rotation = Quaternion.identity;
+
+        _runStarted = true;
+    }
+
     private void Update()
     {
+        if(!_runStarted) return;
+        
         _input = brain.CalculateInput(this);
         
         if (_input.Slide && _controller.isGrounded && _slideTimer <= 0f)
@@ -93,6 +108,7 @@ public class AutoPlayer : MonoBehaviour
     private async Task Die()
     {
         GameStateManager.CurrentGameState = GameStateManager.GameState.Death;
+        _runStarted = false;
     }
     
 }

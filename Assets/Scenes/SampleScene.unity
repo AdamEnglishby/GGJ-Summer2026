@@ -319,8 +319,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.4661881, y: -0.000000005627022, z: 0.0000000029651783, w: 0.88468564}
-  m_LocalPosition: {x: 0, y: 9, z: -4}
+  m_LocalRotation: {x: 0.30070576, y: 0, z: 0, w: 0.953717}
+  m_LocalPosition: {x: 0, y: 9, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -559,6 +559,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelSpawner
   player: {fileID: 20652544}
+  emptyPrefab: {fileID: 765317871239576504, guid: 216ab8d83a3d1b548b79737c4482847a, type: 3}
   segmentPrefabs:
   - {fileID: 765317871239576504, guid: e8657ce6b766207429cd63ced6913925, type: 3}
   - {fileID: 765317871239576504, guid: a1e017874ff3e9b4a91cc4e37f98bc38, type: 3}
@@ -566,6 +567,7 @@ MonoBehaviour:
   - {fileID: 765317871239576504, guid: d01668143a71a6a42afa4c1d7d4e5130, type: 3}
   - {fileID: 765317871239576504, guid: 7cfe6bc420b349540ac1670eea9ddfe9, type: 3}
   - {fileID: 765317871239576504, guid: 9a7c2135df36b444dacedb01a8b737f8, type: 3}
+  - {fileID: 765317871239576504, guid: 88c69368680648a4b8a29c8703b4a8c7, type: 3}
   initialSegmentCount: 4
   spawnDistanceAhead: 100
   despawnDistanceBehind: 30
@@ -5441,7 +5443,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1496727136
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5492,6 +5494,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec6c1b7cfabb43839419afd3a6abbc70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameUI
+  autoPlayer: {fileID: 20652545}
 --- !u!114 &1496727139
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5515,7 +5518,6 @@ GameObject:
   - component: {fileID: 1973971824}
   - component: {fileID: 1973971823}
   - component: {fileID: 1973971822}
-  - component: {fileID: 1973971821}
   m_Layer: 0
   m_Name: CinemachineCamera
   m_TagString: Untagged
@@ -5523,35 +5525,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1973971821
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1973971820}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f38bda98361e1de48a4ca2bd86ea3c17, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineRotationComposer
-  Composition:
-    ScreenPosition: {x: 0, y: 0.01}
-    DeadZone:
-      Enabled: 1
-      Size: {x: 0.79, y: 0.43}
-    HardLimits:
-      Enabled: 0
-      Size: {x: 0.8, y: 0.8}
-      Offset: {x: 0, y: 0}
-  CenterOnActivate: 1
-  TargetOffset: {x: 0, y: 0, z: 0}
-  Damping: {x: 0.5, y: 0}
-  Lookahead:
-    Enabled: 1
-    Time: 0.4
-    Smoothing: 2
-    IgnoreY: 0
 --- !u!114 &1973971822
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5566,11 +5539,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineFollow
   TrackerSettings:
     BindingMode: 4
-    PositionDamping: {x: 1, y: 1, z: 0}
+    PositionDamping: {x: 0, y: 0, z: 0}
     AngularDampingMode: 0
     RotationDamping: {x: 1, y: 1, z: 1}
     QuaternionDamping: 1
-  FollowOffset: {x: 0, y: 6, z: -4}
+  FollowOffset: {x: 0, y: 6, z: -5}
 --- !u!114 &1973971823
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5622,13 +5595,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1973971820}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.46618807, y: -0.0000000056270215, z: 0.0000000029651779, w: 0.8846857}
-  m_LocalPosition: {x: 0, y: 9, z: -4}
+  m_LocalRotation: {x: 0.30070576, y: 0, z: 0, w: 0.953717}
+  m_LocalPosition: {x: 0, y: 9, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 35, y: 0, z: 0}
 --- !u!1 &23582729064107986
 GameObject:
   m_ObjectHideFlags: 0

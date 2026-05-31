@@ -11,6 +11,8 @@ public class Coin : MonoBehaviour
     [SerializeField] private float collectionAnimationDuration = 0.2f;
     [SerializeField] private ParticleSystem collectParticles;
 
+    private bool _collected;
+    
     private void Awake()
     {
         if (cam == null) cam = Camera.main;
@@ -20,6 +22,8 @@ public class Coin : MonoBehaviour
     {
         coinMesh.Rotate(coinMesh.up, Time.deltaTime * 100f);
 
+        if(_collected) return;
+        
         var mousePressed = Mouse.current?.leftButton.wasPressedThisFrame;
         var touchscreenPressed = Touchscreen.current?.primaryTouch.press.wasPressedThisFrame;
 
@@ -48,6 +52,7 @@ public class Coin : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if(_collected) return;
         if ((collectorLayer & (1 << other.gameObject.layer)) != 0)
         {
             _ = Collect();
@@ -56,6 +61,9 @@ public class Coin : MonoBehaviour
 
     private async Task Collect()
     {
+        GameStateManager.CoinCount++;
+        
+        _collected = true;
         collectParticles.Play();
         
         var initialScale = transform.localScale;

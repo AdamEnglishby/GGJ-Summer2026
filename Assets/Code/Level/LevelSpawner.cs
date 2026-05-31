@@ -7,6 +7,7 @@ public class LevelSpawner : MonoBehaviour
 {
     
     [SerializeField] private Transform player;
+    [SerializeField] private LevelSegment emptyPrefab;
     [SerializeField] private LevelSegment[] segmentPrefabs;
     [SerializeField] private int initialSegmentCount = 4;
     [SerializeField] private float spawnDistanceAhead = 60f;
@@ -25,7 +26,8 @@ public class LevelSpawner : MonoBehaviour
     {
         _nextSpawnPosition = transform.position;
 
-        for (var i = 0; i < initialSegmentCount; i++) SpawnSegment();
+        SpawnSegment(emptyPrefab);
+        for (var i = 0; i < initialSegmentCount - 1; i++) SpawnSegment();
     }
 
     private void Update()
@@ -55,20 +57,43 @@ public class LevelSpawner : MonoBehaviour
         }
     }
 
-    private void SpawnSegment()
+    private void SpawnSegment(LevelSegment prefabOverride = null)
     {
-        int newSegmentIndex;
-        do
-        {
-            newSegmentIndex = Random.Range(0, segmentPrefabs.Length);
-        } while (newSegmentIndex == _lastSegmentIndex && segmentPrefabs.Length > 1);
+        LevelSegment prefab;
 
-        var prefab = segmentPrefabs[newSegmentIndex];
-        _lastSegmentIndex = newSegmentIndex;
+        if (prefabOverride)
+        {
+            prefab = prefabOverride;
+        }
+        else
+        {
+            int newSegmentIndex;
+            do
+            {
+                newSegmentIndex = Random.Range(0, segmentPrefabs.Length);
+            } while (newSegmentIndex == _lastSegmentIndex && segmentPrefabs.Length > 1);
+
+            prefab = segmentPrefabs[newSegmentIndex];
+            _lastSegmentIndex = newSegmentIndex;
+        }
 
         var segment = Instantiate(prefab, _nextSpawnPosition, Quaternion.identity, transform);
         _activeSegments.Enqueue(segment);
         _nextSpawnPosition = segment.NextSegmentPosition;
     }
     
+    public void ResetLevel()
+    {
+        while (_activeSegments.Count > 0)
+            Destroy(_activeSegments.Dequeue().gameObject);
+
+        _nextSpawnPosition = transform.position;
+        _lastSegmentIndex = -1;
+        DifficultyModifier = 1f;
+        _difficultyTimer = 0f;
+
+        SpawnSegment(emptyPrefab);
+        for (var i = 0; i < initialSegmentCount - 1; i++) SpawnSegment();
+    }
+
 }
