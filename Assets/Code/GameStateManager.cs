@@ -26,6 +26,7 @@ public class GameStateManager : MonoBehaviour
         Application.targetFrameRate = 60;
         CurrentGameState = GameState.Menu;
         CoinCount = 0;
+        LastRunCoins = 0;
     }
 
     private static GameState _gameState;
@@ -35,6 +36,12 @@ public class GameStateManager : MonoBehaviour
         get => _gameState;
         set
         {
+            if (_gameState == GameState.Gameplay && value != GameState.Gameplay)
+            {
+                LastRunCoins = CoinCount;
+                TotalCoins += CoinCount;
+            }
+
             switch (value)
             {
                 case GameState.Menu:
@@ -44,11 +51,14 @@ public class GameStateManager : MonoBehaviour
                     {
                         _instance.levelSpawner.ResetLevel();
                     }
-
                     _instance.staticCamera.Priority.Value = 1;
                     _instance.playerCamera.Priority.Value = 0;
                     break;
                 case GameState.Gameplay:
+                    CoinCount = 0;
+                    _instance.staticCamera.Priority.Value = 0;
+                    _instance.playerCamera.Priority.Value = 1;
+                    break;
                 case GameState.Death:
                     _instance.staticCamera.Priority.Value = 0;
                     _instance.playerCamera.Priority.Value = 1;
@@ -71,6 +81,9 @@ public class GameStateManager : MonoBehaviour
             OnCoinCollected?.Invoke();
         }
     }
+
+    public static int LastRunCoins { get; private set; }
+    public static int TotalCoins { get; private set; }
 
     public static event Action<GameState> OnStateChange;
     public static event Action OnCoinCollected;

@@ -1,5 +1,4 @@
 using System.Globalization;
-using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -21,15 +20,15 @@ public class GameUI : MonoBehaviour
         _document.rootVisualElement.Q<Button>("btn-debug-gameplay").clicked += () => GameStateManager.CurrentGameState = GameStateManager.GameState.Gameplay;
         _document.rootVisualElement.Q<Button>("btn-debug-death").clicked += () => GameStateManager.CurrentGameState = GameStateManager.GameState.Death;
         
-        _document.rootVisualElement.Q<Button>("button-play").clicked += OnPlayButtonClicked;
-        _document.rootVisualElement.Q<Button>("button-back-to-menu").clicked += OnMenuButtonClicked;
-        _document.rootVisualElement.Q<Button>("button-upgrades").clicked += OnUpgradesButtonClicked;
-        _document.rootVisualElement.Q<Button>("button-exit").clicked += OnExitButtonClicked;
+        _document.rootVisualElement.Query<Button>("button-play").ForEach(b => b.clicked += OnPlayButtonClicked);
+        _document.rootVisualElement.Query<Button>("button-back-to-menu").ForEach(b => b.clicked += OnMenuButtonClicked);
+        _document.rootVisualElement.Query<Button>("button-upgrades").ForEach(b => b.clicked += OnUpgradesButtonClicked);
+        _document.rootVisualElement.Query<Button>("button-exit").ForEach(b => b.clicked += OnExitButtonClicked);
         
-        _document.rootVisualElement.Q<Button>("button-play-hover").clicked += OnPlayButtonClicked;
-        _document.rootVisualElement.Q<Button>("button-back-to-menu-hover").clicked += OnMenuButtonClicked;
-        _document.rootVisualElement.Q<Button>("button-upgrades-hover").clicked += OnUpgradesButtonClicked;
-        _document.rootVisualElement.Q<Button>("button-exit-hover").clicked += OnExitButtonClicked;
+        _document.rootVisualElement.Query<Button>("button-play-hover").ForEach(b => b.clicked += OnPlayButtonClicked);
+        _document.rootVisualElement.Query<Button>("button-back-to-menu-hover").ForEach(b => b.clicked += OnMenuButtonClicked);
+        _document.rootVisualElement.Query<Button>("button-upgrades-hover").ForEach(b => b.clicked += OnUpgradesButtonClicked);
+        _document.rootVisualElement.Query<Button>("button-exit-hover").ForEach(b => b.clicked += OnExitButtonClicked);
         
         GameStateManager.OnCoinCollected += OnCoinCollected;
     }
@@ -81,6 +80,13 @@ public class GameUI : MonoBehaviour
         _document.rootVisualElement.RemoveFromClassList("game-state-death");
 
         _document.rootVisualElement.AddToClassList($"game-state-{obj.ToString().ToLower()}");
+
+        if (obj == GameStateManager.GameState.Death)
+        {
+            _document.rootVisualElement.Q<Label>("label-coins-this-run").text = GameStateManager.LastRunCoins.ToString(CultureInfo.InvariantCulture);
+            var distance = autoPlayer.transform.position.z;
+            _document.rootVisualElement.Q<Label>("label-distance").text = $"{distance / 1000:F2} KM";
+        }
     }
     
 }
