@@ -38,7 +38,7 @@
     </ui:VisualElement>
     <ui:VisualElement name="death-container" class="state" style="flex-grow: 1; margin-top: 12px; margin-right: 12px; margin-bottom: 12px; margin-left: 12px;">
         <ui:VisualElement style="flex-grow: 1; position: absolute; top: -48px; left: -48px; right: -48px; bottom: -48px; background-color: rgba(0, 0, 0, 0.78);"/>
-        <ui:Label text="Death UI"/>
+        <ui:Image source="project://database/Assets/UI/Your%20Guy%20Died.svg?fileID=7388822144124034973&amp;guid=2581e5782ca1832469654302755ee653&amp;type=3#Your Guy Died"/>
     </ui:VisualElement>
     <ui:VisualElement style="align-self: flex-end; justify-content: flex-end; position: absolute;">
         <ui:Button text="Menu" name="btn-debug-menu" style="font-size: 8px; padding-top: 2px; padding-right: 2px; padding-bottom: 2px; padding-left: 2px;"/>

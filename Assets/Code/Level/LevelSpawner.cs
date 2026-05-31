@@ -15,6 +15,7 @@ public class LevelSpawner : MonoBehaviour
     [SerializeField] private float difficultyIncreaseInterval = 5f;
     [SerializeField] private float difficultyIncreaseAmount = 1.1f;
     
+    public bool NeedsReset;
     [NonSerialized] public float DifficultyModifier = 1f;
     private float _difficultyTimer;
 
@@ -51,6 +52,7 @@ public class LevelSpawner : MonoBehaviour
             var oldest = _activeSegments.Peek();
             if (player.position.z - oldest.transform.position.z < despawnDistanceBehind) break;
 
+            NeedsReset = true;
             _activeSegments.Dequeue();
             
             Destroy(oldest.gameObject);
@@ -94,6 +96,8 @@ public class LevelSpawner : MonoBehaviour
 
         SpawnSegment(emptyPrefab);
         for (var i = 0; i < initialSegmentCount - 1; i++) SpawnSegment();
+
+        NeedsReset = false;
     }
 
 }

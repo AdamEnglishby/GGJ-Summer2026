@@ -36,11 +36,16 @@ public class AutoPlayer : MonoBehaviour
     public void StartRun()
     {
         levelSpawner.ResetLevel();
-        
+        ResetPlayer();
+        _runStarted = true;
+    }
+
+    public void ResetPlayer()
+    {
         transform.position = Vector3.zero;
         transform.rotation = Quaternion.identity;
 
-        _runStarted = true;
+        _runStarted = false;
     }
 
     private void Update()

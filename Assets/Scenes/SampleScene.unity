@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 04463255b6b2b034cbb58d979166e211, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -393,7 +393,7 @@ MonoBehaviour:
     Enabled: 0
     DefaultMode: 2
   DefaultBlend:
-    Style: 1
+    Style: 0
     Time: 2
     CustomCurve:
       serializedVersion: 2
@@ -529,6 +529,81 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
+--- !u!1 &513295290
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 513295292}
+  - component: {fileID: 513295291}
+  m_Layer: 0
+  m_Name: Static Camera
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &513295291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 513295290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9dfa5b682dcd46bda6128250e975f58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineCamera
+  Priority:
+    Enabled: 0
+    m_Value: 1
+  OutputChannel: 1
+  StandbyUpdate: 2
+  m_StreamingVersion: 20241001
+  m_LegacyPriority: 0
+  Target:
+    TrackingTarget: {fileID: 0}
+    LookAtTarget: {fileID: 0}
+    CustomLookAtTarget: 0
+  Lens:
+    FieldOfView: 60.000004
+    OrthographicSize: 5
+    NearClipPlane: 0.3
+    FarClipPlane: 1000
+    Dutch: 0
+    ModeOverride: 0
+    PhysicalProperties:
+      GateFit: 2
+      SensorSize: {x: 21.946, y: 16.002}
+      LensShift: {x: 0, y: 0}
+      FocusDistance: 10
+      Iso: 200
+      ShutterSpeed: 0.005
+      Aperture: 16
+      BladeCount: 5
+      Curvature: {x: 2, y: 11}
+      BarrelClipping: 0.25
+      Anamorphism: 0
+  BlendHint: 0
+--- !u!4 &513295292
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 513295290}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.076477975, y: -0.25800705, z: -0.020492267, w: 0.96289337}
+  m_LocalPosition: {x: 11.26, y: 0.9, z: 22.76}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: -9.082, y: -30, z: 0}
 --- !u!1 &960429796
 GameObject:
   m_ObjectHideFlags: 0
@@ -573,6 +648,7 @@ MonoBehaviour:
   despawnDistanceBehind: 30
   difficultyIncreaseInterval: 5
   difficultyIncreaseAmount: 1.1
+  NeedsReset: 0
 --- !u!4 &960429798
 Transform:
   m_ObjectHideFlags: 0
@@ -5507,6 +5583,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62f64e92583949f2a97d4f477f4d58b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameStateManager
+  playerCamera: {fileID: 1973971823}
+  staticCamera: {fileID: 513295291}
+  levelSpawner: {fileID: 960429797}
+  autoPlayer: {fileID: 20652545}
 --- !u!1 &1973971820
 GameObject:
   m_ObjectHideFlags: 0
@@ -5519,7 +5599,7 @@ GameObject:
   - component: {fileID: 1973971823}
   - component: {fileID: 1973971822}
   m_Layer: 0
-  m_Name: CinemachineCamera
+  m_Name: Player Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7587,6 +7667,7 @@ SceneRoots:
   m_Roots:
   - {fileID: 1496727137}
   - {fileID: 1973971824}
+  - {fileID: 513295292}
   - {fileID: 330585546}
   - {fileID: 20652544}
   - {fileID: 960429798}
