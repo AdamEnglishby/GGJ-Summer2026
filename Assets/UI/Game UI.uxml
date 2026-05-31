@@ -72,7 +72,7 @@
             <ui:Button name="button-play-hover" icon-image="project://database/Assets/UI/Buttons/New%20Run%20(Hover).svg?fileID=7388822144124034973&amp;guid=3ee4ad9a9680d1046a9b0a6ea7443b48&amp;type=3#New Run (Hover)" class="hover-state" style="background-color: rgba(255, 255, 255, 0); border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; position: absolute; top: 0; left: 0; right: 0; bottom: 0; translate: 0 1px; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;"/>
         </ui:Button>
     </ui:VisualElement>
-    <ui:VisualElement style="align-self: flex-end; justify-content: flex-end; position: absolute;">
+    <ui:VisualElement style="align-self: flex-end; justify-content: flex-end; position: absolute; display: none;">
         <ui:Button text="Menu" name="btn-debug-menu" style="font-size: 8px; padding-top: 2px; padding-right: 2px; padding-bottom: 2px; padding-left: 2px;"/>
         <ui:Button text="Upgrades" name="btn-debug-upgrades" style="font-size: 8px; padding-top: 2px; padding-right: 2px; padding-bottom: 2px; padding-left: 2px;"/>
         <ui:Button text="Gameplay" name="btn-debug-gameplay" style="font-size: 8px; padding-top: 2px; padding-right: 2px; padding-bottom: 2px; padding-left: 2px;"/>
