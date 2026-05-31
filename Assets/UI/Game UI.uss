@@ -29,3 +29,7 @@ Button .hover-state {
 Button:hover .hover-state {
     display: flex;
 }
+
+#upgrade-container ScrollView Scroller * {
+    display: none !important;
+}

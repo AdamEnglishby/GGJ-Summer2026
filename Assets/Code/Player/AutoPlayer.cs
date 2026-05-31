@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
@@ -6,6 +5,7 @@ public class AutoPlayer : MonoBehaviour
 {
     
     private static readonly int Sliding = Animator.StringToHash("Sliding");
+    private static readonly int Dead = Animator.StringToHash("Dead");
 
     [SerializeField] private LevelSpawner levelSpawner;
     [SerializeField] private AutoPlayerConfiguration config;
@@ -35,6 +35,7 @@ public class AutoPlayer : MonoBehaviour
     [ContextMenu("Start Run")]
     public void StartRun()
     {
+        animator.SetBool(Dead, false);
         levelSpawner.ResetLevel();
         ResetPlayer();
         _runStarted = true;
@@ -106,12 +107,13 @@ public class AutoPlayer : MonoBehaviour
     {
         if (hit.gameObject.layer == LayerMask.NameToLayer("Obstacle"))
         {
-            _ = Die();
+            Die();
         }
     }
 
-    private async Task Die()
+    private void Die()
     {
+        animator.SetBool(Dead, true);
         GameStateManager.CurrentGameState = GameStateManager.GameState.Death;
         _runStarted = false;
     }
