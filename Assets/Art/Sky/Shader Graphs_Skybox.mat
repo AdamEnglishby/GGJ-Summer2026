@@ -43,8 +43,8 @@ Material:
     - _Star_Visibility: 8.14
     - _XRMotionVectorsPass: 1
     m_Colors:
-    - _Skybox_Tint_Bottom: {r: 0.34509805, g: 0.63952774, b: 0.972549, a: 1}
-    - _Skybox_Tint_Top: {r: 0, g: 0.045380574, b: 0.6886792, a: 1}
+    - _Skybox_Tint_Bottom: {r: 0.5707547, g: 0.7719634, b: 1, a: 1}
+    - _Skybox_Tint_Top: {r: 0.49395657, g: 0, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &5285812633866266497
